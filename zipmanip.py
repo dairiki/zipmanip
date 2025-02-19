@@ -18,7 +18,7 @@ from typing import TYPE_CHECKING, BinaryIO, Final, Protocol, runtime_checkable
 from zipfile import ZIP_BZIP2, ZIP_DEFLATED, ZIP_LZMA, ZIP_STORED, ZipFile, ZipInfo
 
 if TYPE_CHECKING:
-    from collections.abc import Generator
+    from collections.abc import Generator, Sequence
 
     from _typeshed import StrPath, SupportsRead, SupportsWrite, Unused
 
@@ -150,13 +150,14 @@ class _CompressionLevelArg(argparse.Action):
         setattr(namespace, self.dest, compression_level)
 
 
-def main() -> None:
+def main(args: Sequence[str] | None = None) -> None:
     """Write zip file contents to a new zip file, re- or de-compressing its contents.
 
     This can be used to convert a compressed zip file to one whose
     contents are stored uncompressed, and vice versa.
 
     """
+
     parser = argparse.ArgumentParser(description=inspect.getdoc(main))
     parser.add_argument(
         "--output-file",
@@ -193,12 +194,12 @@ def main() -> None:
         dest="compression_level",
         help="set compression level",
     )
-    args = parser.parse_args()
+    parsed = parser.parse_args(args)
 
-    infile = args.input_file
-    outfile = args.output_file
-    compression = _COMPRESSION_TYPES.get(args.compression_method, ZIP_DEFLATED)
-    compresslevel = args.compression_level
+    infile = parsed.input_file
+    outfile = parsed.output_file
+    compression = _COMPRESSION_TYPES.get(parsed.compression_method, ZIP_DEFLATED)
+    compresslevel = parsed.compression_level
 
     with ExitStack() as stack:
         if infile is None:
