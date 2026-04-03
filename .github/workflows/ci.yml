@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - uses: excitedleigh/setup-nox@4c62aee44396909396d10137c747b2633deeee76 # @v2.1.0
-    - run: nox -s tests cover_report
+    - uses: astral-sh/setup-uv@v7
+    - run: uv tool run nox -db uv -s tests cover_report
 
   lint:
     name: Lint checks
