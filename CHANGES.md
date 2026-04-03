@@ -1,6 +1,6 @@
 # Change Log
 
-## Release 0.1.0b1 (unreleased)
+## Release 0.1.0b1 (2026-04-03)
 
 - Dropped support for python 3.9.
 - Added tests
