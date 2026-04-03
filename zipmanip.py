@@ -153,7 +153,7 @@ class _CompressionLevelArg(argparse.Action):
 def main() -> None:
     """Write zip file contents to a new zip file, re- or de-compressing its contents.
 
-    This can be used to convert a compress zip file to one whose
+    This can be used to convert a compressed zip file to one whose
     contents are stored uncompressed, and vice versa.
 
     """

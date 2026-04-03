@@ -38,7 +38,7 @@ The recommended method of installation is to install the distribution from
 2. Run `pipx install zipmanip`.
 
 Any standard python installation method (e.g. installing to a
-venv using `pip`) should work.
+virtual environment using `pip`) should work.
 
 ### Quick and Dirty method
 
@@ -57,7 +57,7 @@ usage: zipmanip [-h] [--output-file OUTPUT_FILE]
                 [input_file]
 
 Write zip file contents to a new zip file, re- or de-compressing its contents. This can be
-used to convert a compress zip file to one whose contents are stored uncompressed, and
+used to convert a compressed zip file to one whose contents are stored uncompressed, and
 vice versa.
 
 positional arguments:
@@ -80,7 +80,7 @@ archive from *stdin*, and write an zip archive with the same contents,
 all of which is stored uncompressed to *stdout*.
 
 The "inverse" operation (not exactly, see
-[below](#on-round-trip-idempotentency)) would be `zipmanip` to
+[below](#on-round-trip-idempotency)) would be `zipmanip` to
 compress the contents using the default settings (or `zipmanip -9` to
 turn the deflate compression to max).
 
@@ -114,10 +114,10 @@ you want to store uncompressed.  E.g.
 
 ## Bugs
 
-### On Round-trip Idempotentency
+### On Round-trip Idempotency
 
 Currently if a zip archive is round tripped — converted to
-uncompressed, then recompressed — the result will not be byte-wise
+uncompressed, then re-compressed — the result will not be byte-wise
 identical to the original. This is due to (at least) a couple of issues.
 
 #### Differing compression algorithm and parameters
