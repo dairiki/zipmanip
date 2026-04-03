@@ -218,7 +218,7 @@ def main(args: Sequence[str] | None = None) -> None:
                 # preceding this file.")
                 assert isinstance(sys.stdout, io.TextIOBase)
                 outfile = sys.stdout.detach()
-                sys.stdout = sys.stderr  # paranoia: assure any print() goes to stdout
+                sys.stdout = sys.stderr  # paranoia: insure print() goes to stderr
                 if not is_seekable(outfile):
                     outfile = stack.enter_context(_buffer_output(outfile))
         elif outfile is None:
