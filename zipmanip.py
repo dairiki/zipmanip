@@ -229,4 +229,4 @@ def main(args: Sequence[str] | None = None) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main()  # pragma: NO COVER

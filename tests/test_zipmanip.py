@@ -45,13 +45,13 @@ def test_rezip(compression: int) -> None:
 
 class _NonseekableBytesIO(io.BytesIO):
     def seek(self, offset: int, whence: int = 0, /) -> int:  # noqa: ARG002
-        raise OSError("Not seekable")
+        raise OSError("Not seekable")  # pragma: NO COVER
 
     def seekable(self) -> bool:
-        return False
+        return False  # pragma: NO COVER
 
     def tell(self) -> int:
-        raise OSError("Not seekable")
+        raise OSError("Not seekable")  # pragma: NO COVER
 
 
 def test_is_seekable_true() -> None:
