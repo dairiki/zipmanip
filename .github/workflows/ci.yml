@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [ "*" ]
+    tags: [ "v*" ]              # v* are protected tags
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Run python tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: excitedleigh/setup-nox@4c62aee44396909396d10137c747b2633deeee76 # @v2.1.0
+    - run: nox -s tests cover_report
+
+  lint:
+    name: Lint checks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: astral-sh/setup-uv@v7
+    - name: Set up pre-commit cache
+      uses: actions/cache@v5
+      with:
+        path: |
+          ~/.cache/pre-commit
+          ~/.cache/pip
+        key: py-${{ hashFiles('.pre-commit-config.yaml', 'pdm.lock') }}
+
+    - name: Pre-commit checks
+      run: uv tool run pre-commit run --all-files
+
+    - name: Typing checks
+      if: always()
+      run: uv tool run nox -s typing
+
+  build:
+    name: Build python package
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - uses: pdm-project/setup-pdm@973541a5febeafcfdadf8a51211435be6ecfd90f # @v4.5
+    - run: pdm build
+    - uses: actions/upload-artifact@v6
+      with:
+        name: dist
+        path: dist/
+        retention-days: 1       # save money
+
+  pypi-publish:
+    name: Upload to PyPI
+    needs: [tests, lint, build]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    environment:
+      name: pypi
+      url: https://pypi.org/p/zipmanip/
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
