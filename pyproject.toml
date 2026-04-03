@@ -95,12 +95,3 @@ ignore = [
 
 [tool.ruff.lint.flake8-unused-arguments]
 # ignore-variadic-names = true
-
-[tool.scriv]
-format = "md"
-fragment_directory = "changes.d"
-new_fragment_template = "file: new_fragment.md.j2"
-output_file = "CHANGES.md"
-md_header_level = "3"
-version = "command: pdm show --version"
-entry_title_template = "file: entry_title.txt.j2"
