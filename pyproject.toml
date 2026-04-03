@@ -1,6 +1,6 @@
 [project]
 name = "zipmanip"
-version = "0.1.0a2"
+dynamic = ["version"]
 description = "Rewrite zip files, modifying compression type and parameters."
 readme = "README.md"
 license = {text = "MIT"}
@@ -55,6 +55,9 @@ distribution = true
 
 [tool.pdm.build]
 includes = ["zipmanip.py"]
+
+[tool.pdm.version]
+source = "scm"
 
 [tool.pdm.scripts]
 tests = "nox"
