@@ -2,7 +2,7 @@
 
 [![Latest version badge](https://img.shields.io/pypi/v/zipmanip)](https://pypi.org/project/zipmanip/)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/zipmanip)
-
+[![CI](https://github.com/dairiki/zipmanip/actions/workflows/ci.yml/badge.svg)](https://github.com/dairiki/zipmanip/actions/workflows/ci.yml)
 
 This is a command line utility that rewrites a zip file. It attempts
 to leave the archive contents metadata and ordering as unchanged as
